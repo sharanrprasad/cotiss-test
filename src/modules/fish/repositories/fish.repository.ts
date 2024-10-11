@@ -44,7 +44,6 @@ export class FishCustomRepository {
         );
       }
     }
-
     return query.getMany();
   }
 }

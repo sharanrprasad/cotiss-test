@@ -1,17 +1,19 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Controller, Query, Get } from '@nestjs/common';
 import { LoggerClient } from '../../shared/logger.client';
-import { FishListFilterRequestDto } from '../types/fish.dto';
+import { FishListQueryParamsDto, FishListResponseDto } from '../types/fish.dto';
 import { FishService } from '../services/fish.service';
 
 @Controller('fish')
 export class FishController {
   constructor(
     private log: LoggerClient,
-    fishService: FishService,
+    private fishService: FishService,
   ) {}
 
-  @Post('/list')
-  getPaginatedFishList(@Body() fishListRequest: FishListFilterRequestDto) {
-    return;
+  @Get('/list')
+  async getPaginatedFishList(
+    @Query() fishListQuery: FishListQueryParamsDto,
+  ): Promise<FishListResponseDto> {
+    return this.fishService.getPaginatedFishList(fishListQuery);
   }
 }

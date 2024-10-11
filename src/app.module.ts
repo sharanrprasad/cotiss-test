@@ -4,12 +4,12 @@ import { AppService } from './app.service';
 import { SharedModule } from './modules/shared/shared.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigClient, ConfigKeys } from './modules/shared/config.client';
+import { FishModule } from './modules/fish/fish.module';
 
 @Module({
   imports: [
     SharedModule,
     TypeOrmModule.forRootAsync({
-      imports: [SharedModule],
       inject: [ConfigClient],
       useFactory: async (configClient: ConfigClient) => {
         return {
@@ -24,6 +24,7 @@ import { ConfigClient, ConfigKeys } from './modules/shared/config.client';
         };
       },
     }),
+    FishModule,
   ],
   controllers: [AppController],
   providers: [AppService],

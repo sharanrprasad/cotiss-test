@@ -6,7 +6,8 @@ const configFactory = {
   provide: ConfigClient,
   useFactory: async (loggerClient: LoggerClient) => {
     const configClient = new ConfigClient(loggerClient);
-    return configClient.init();
+    await configClient.init();
+    return configClient;
   },
   inject: [LoggerClient],
 };

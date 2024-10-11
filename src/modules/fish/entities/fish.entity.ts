@@ -22,10 +22,10 @@ export class Fish {
   @Column({ type: 'text' })
   description: string;
 
-  @Column({ type: 'int64' })
+  @Column({ type: 'integer' })
   lifespan: number;
 
-  @Column({ type: 'int64' })
+  @Column({ type: 'integer' })
   length: number;
 
   @Column({ type: 'text' })
