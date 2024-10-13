@@ -13,8 +13,9 @@ export class Fish {
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
 
-  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+  // TODO - Look in to storing this as a string.
+  @Column({ type: 'varchar', length: 512 })
+  createdAt: string;
 
   @Column({ type: 'varchar', length: 256 })
   name: string;

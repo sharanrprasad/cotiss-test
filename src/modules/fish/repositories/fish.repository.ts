@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Fish } from '../entities/fish.entity';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 
 @Injectable()
 export class FishCustomRepository {
@@ -44,6 +44,25 @@ export class FishCustomRepository {
         );
       }
     }
+
+    // await this.fishRepository.insert({
+    //   name: 'Goldfish',
+    //   imageUrl: 'https://www.google.com',
+    //   lifespan: 90,
+    //   length: 900,
+    //   description:
+    //     'This is great fish. Has been a great fish and will be a great fish',
+    //   createdAt: new Date().toISOString(),
+    // });
+
     return query.getMany();
+  }
+
+  async findOneById(fishId: string) {
+    return this.fishRepository.findOneBy({ id: fishId, isActive: true });
+  }
+
+  async updateFish(entity: DeepPartial<Fish>) {
+    return this.fishRepository.save(entity);
   }
 }
