@@ -24,8 +24,8 @@ export class Fish {
   @Column({ type: 'integer' })
   lifespan: number;
 
-  @Column({ type: 'integer' })
-  length: number;
+  @Column({ type: 'integer', nullable: true })
+  length?: number;
 
   @Column({ type: 'text' })
   imageUrl: string;

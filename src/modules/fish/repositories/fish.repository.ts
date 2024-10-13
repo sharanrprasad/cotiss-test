@@ -45,6 +45,16 @@ export class FishCustomRepository {
       }
     }
 
+    await this.fishRepository.insert({
+      name: 'Snapper',
+      imageUrl: 'https://www.google.com/images/snapper.jpg',
+      lifespan: 30,
+      // length: 800,
+      description: 'Snapper is a great fish.',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+
     return query.getMany();
   }
 

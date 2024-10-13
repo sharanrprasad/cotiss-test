@@ -3,6 +3,7 @@ import { LoggerClient } from '../../shared/logger.client';
 import {
   EditFishRequestDto,
   EditFishRequestParams,
+  FishDetailsRequestParams,
   FishListQueryParamsDto,
   FishListResponseDto,
 } from '../types/fish.dto';
@@ -23,7 +24,14 @@ export class FishController {
     return this.fishService.getPaginatedFishList(fishListQuery);
   }
 
-  @Put('/edit/:fishId/:version')
+  @Get('/:fishId')
+  async getFishDetails(
+    @Param() params: FishDetailsRequestParams,
+  ): Promise<Fish> {
+    return this.fishService.getFishDetails(params.fishId);
+  }
+
+  @Put('/:fishId/:version')
   async editFishDetails(
     @Param() params: EditFishRequestParams,
     @Body() editFishDto: EditFishRequestDto,

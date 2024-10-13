@@ -5,4 +5,8 @@ export class LoggerClient {
   info(...data: any[]) {
     return console.log(data);
   }
+
+  error(...data: any[]) {
+    return console.error(data);
+  }
 }

@@ -33,8 +33,19 @@ export class FishService {
     return {
       total: totalCount,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      data: results.map(({ description, ...rest }) => rest),
+      data: results.map(({ description, imageUrl, ...rest }) => rest),
     };
+  }
+
+  async getFishDetails(fishId: string): Promise<Fish> {
+    const fish = await this.fishRepository.findOneById(fishId);
+    if (!fish) {
+      throw new HttpException(
+        `No fish data found for id ${fishId}`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return fish;
   }
 
   async editFishDetails(
@@ -52,6 +63,7 @@ export class FishService {
     }
 
     if (fish.version !== version) {
+      this.log.error('Version mismatch found for ', fishId);
       throw new HttpException(
         `Version mismatch for ${fishId}`,
         HttpStatus.CONFLICT,
@@ -60,7 +72,10 @@ export class FishService {
 
     const fishData: Partial<Fish> = {
       id: fish.id,
-      ...updateFishDetails,
+      description: updateFishDetails.description,
+      name: updateFishDetails.description,
+      length: updateFishDetails.length,
+      lifespan: updateFishDetails.lifespan,
       updatedAt: new Date().toISOString(),
       version: fish.version + 1,
     };

@@ -32,11 +32,19 @@ export class FishListQueryParamsDto {
   orderBy?: 'ASC' | 'DESC';
 }
 
-export type FishListData = Omit<Fish, 'description'>;
+export type FishListData = Omit<Fish, 'description' | 'imageUrl'>;
 
 export interface FishListResponseDto {
   total: number;
   data: FishListData[];
+}
+
+/* View Fish Details */
+
+export class FishDetailsRequestParams {
+  @IsString()
+  @IsUUID()
+  fishId: string;
 }
 
 /* Edit Fish API types. */
