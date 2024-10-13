@@ -45,16 +45,6 @@ export class FishCustomRepository {
       }
     }
 
-    // await this.fishRepository.insert({
-    //   name: 'Salmon',
-    //   imageUrl: 'https://www.google.com/images/snapper.jpg',
-    //   lifespan: 12,
-    //   length: 800,
-    //   description: 'Salmon is not a bad fish.',
-    //   createdAt: new Date().toISOString(),
-    //   updatedAt: new Date().toISOString(),
-    // });
-
     return query.getMany();
   }
 

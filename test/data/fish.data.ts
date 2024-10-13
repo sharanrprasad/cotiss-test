@@ -12,6 +12,7 @@ export const getMockFishData = (val: Partial<Fish>): Fish => {
     updatedAt: new Date().toISOString(),
     isActive: true,
     imageUrl: 'https://www.google.com',
+    version: 1,
     ...val,
   };
 };
