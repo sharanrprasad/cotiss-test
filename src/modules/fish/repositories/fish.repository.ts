@@ -45,15 +45,15 @@ export class FishCustomRepository {
       }
     }
 
-    await this.fishRepository.insert({
-      name: 'Snapper',
-      imageUrl: 'https://www.google.com/images/snapper.jpg',
-      lifespan: 30,
-      // length: 800,
-      description: 'Snapper is a great fish.',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    });
+    // await this.fishRepository.insert({
+    //   name: 'Salmon',
+    //   imageUrl: 'https://www.google.com/images/snapper.jpg',
+    //   lifespan: 12,
+    //   length: 800,
+    //   description: 'Salmon is not a bad fish.',
+    //   createdAt: new Date().toISOString(),
+    //   updatedAt: new Date().toISOString(),
+    // });
 
     return query.getMany();
   }

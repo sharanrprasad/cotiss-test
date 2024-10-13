@@ -19,13 +19,11 @@ export const getTestTypeOrmModule = () => {
   });
 };
 
-export const getTestApplicationModule = () => {
-  const module: TestingModuleBuilder = Test.createTestingModule({
+export const getTestApplicationModule = (): TestingModuleBuilder => {
+  return Test.createTestingModule({
     imports: [SharedModule, getTestTypeOrmModule(), FishModule],
     providers: [],
   })
     .overrideProvider(ConfigClient)
     .useClass(MockConfigClient);
-
-  return module;
 };
