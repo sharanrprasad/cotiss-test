@@ -45,16 +45,6 @@ export class FishCustomRepository {
       }
     }
 
-    // await this.fishRepository.insert({
-    //   name: 'Goldfish',
-    //   imageUrl: 'https://www.google.com',
-    //   lifespan: 90,
-    //   length: 900,
-    //   description:
-    //     'This is great fish. Has been a great fish and will be a great fish',
-    //   createdAt: new Date().toISOString(),
-    // });
-
     return query.getMany();
   }
 

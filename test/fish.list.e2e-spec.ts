@@ -51,4 +51,29 @@ describe('FishController (e2e)', () => {
       fishData2.id,
     ]);
   });
+
+  it('/list (GET) should return fishes in descending order when specified', async () => {
+    const fishRepository = app.get<Repository<Fish>, Repository<Fish>>(
+      getRepositoryToken(Fish),
+    );
+
+    const fishData1 = getMockFishData({
+      name: 'Tuna',
+      createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+    });
+
+    const fishData2 = getMockFishData({ name: 'Snapper' });
+
+    // Add data to the fish table.
+    await fishRepository.save([fishData1, fishData2]);
+
+    const response = await request(app.getHttpServer()).get(
+      '/fish/list?limit=5&orderBy=DESC',
+    );
+    expect(response.status).toBe(200);
+    expect(response.body.data.map((d: Fish) => d.id)).toEqual([
+      fishData2.id,
+      fishData1.id,
+    ]);
+  });
 });

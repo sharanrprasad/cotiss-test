@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {
   EditFishRequestDto,
   FishListQueryParamsDto,
@@ -37,17 +37,37 @@ export class FishService {
     };
   }
 
-  async editFishDetails(fishId: string, updateFishDetails: EditFishRequestDto) {
+  async editFishDetails(
+    fishId: string,
+    version: number,
+    updateFishDetails: EditFishRequestDto,
+  ) {
     const fish = await this.fishRepository.findOneById(fishId);
+
     if (!fish) {
-      throw new Error(`no fish data found for id ${fishId}`);
+      throw new HttpException(
+        `No fish data found for id ${fishId}`,
+        HttpStatus.NOT_FOUND,
+      );
     }
 
-    const fishData = {
+    if (fish.version !== version) {
+      throw new HttpException(
+        `Version mismatch for ${fishId}`,
+        HttpStatus.CONFLICT,
+      );
+    }
+
+    const fishData: Partial<Fish> = {
       id: fish.id,
       ...updateFishDetails,
+      updatedAt: new Date().toISOString(),
+      version: fish.version + 1,
     };
+
+    // Can also use transactions with Pessimistic locking here to further protect this.
     await this.fishRepository.updateFish(fishData);
+
     return (await this.fishRepository.findOneById(fishId)) as Fish;
   }
 }

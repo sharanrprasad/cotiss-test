@@ -1,9 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('Fish')
 export class Fish {
@@ -16,6 +11,9 @@ export class Fish {
   // TODO - Look in to storing this as a string.
   @Column({ type: 'varchar', length: 512 })
   createdAt: string;
+
+  @Column({ type: 'varchar', length: 512 })
+  updatedAt: string;
 
   @Column({ type: 'varchar', length: 256 })
   name: string;
@@ -31,4 +29,7 @@ export class Fish {
 
   @Column({ type: 'text' })
   imageUrl: string;
+
+  @Column({ type: 'integer', default: 1 })
+  version: number;
 }

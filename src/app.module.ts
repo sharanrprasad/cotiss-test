@@ -19,6 +19,7 @@ import { FishModule } from './modules/fish/fish.module';
           username: configClient.get(ConfigKeys.DbUserName),
           password: configClient.get(ConfigKeys.DbPassword),
           database: configClient.get(ConfigKeys.DbName),
+          // Don't do this in production systems. We need to use migrations.
           synchronize: true,
           autoLoadEntities: true,
         };

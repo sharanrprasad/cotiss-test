@@ -9,6 +9,7 @@ export const getMockFishData = (val: Partial<Fish>): Fish => {
     length: 20,
     lifespan: 30,
     createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
     isActive: true,
     imageUrl: 'https://www.google.com',
     ...val,

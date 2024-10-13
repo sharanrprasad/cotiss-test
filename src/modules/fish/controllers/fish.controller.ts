@@ -1,4 +1,4 @@
-import { Controller, Query, Get, Param, Put, Body } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put, Query } from '@nestjs/common';
 import { LoggerClient } from '../../shared/logger.client';
 import {
   EditFishRequestDto,
@@ -23,15 +23,15 @@ export class FishController {
     return this.fishService.getPaginatedFishList(fishListQuery);
   }
 
-  @Put('/edit/:fishId')
+  @Put('/edit/:fishId/:version')
   async editFishDetails(
     @Param() params: EditFishRequestParams,
     @Body() editFishDto: EditFishRequestDto,
   ): Promise<Fish> {
-    const result = await this.fishService.editFishDetails(
+    return this.fishService.editFishDetails(
       params.fishId,
+      params.version,
       editFishDto,
     );
-    return result;
   }
 }

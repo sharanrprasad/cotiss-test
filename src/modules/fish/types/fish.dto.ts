@@ -10,7 +10,6 @@ import {
 } from 'class-validator';
 import { Fish } from '../entities/fish.entity';
 import { Type } from 'class-transformer';
-import { OmitType } from '@nestjs/swagger';
 
 export class FishListQueryParamsDto {
   @Type(() => Number)
@@ -45,25 +44,28 @@ export class EditFishRequestParams {
   @IsString()
   @IsUUID()
   fishId: string;
+
+  @Type(() => Number)
+  @IsNumber()
+  version: number;
 }
 
-export class EditFishRequestDto extends OmitType(Fish, [
-  'id',
-  'imageUrl',
-  'isActive',
-  'createdAt',
-] as const) {
+export class EditFishRequestDto {
   @IsString()
+  @IsOptional()
   description: string;
 
   @Type(() => Number)
   @IsNumber()
+  @IsOptional()
   length: number;
 
   @IsString()
+  @IsOptional()
   name: string;
 
   @Type(() => Number)
   @IsInt()
+  @IsOptional()
   lifespan: number;
 }
