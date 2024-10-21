@@ -9,6 +9,7 @@ export enum ConfigKeys {
   DbPassword = 'DbPassword',
   DbName = 'DbName',
   AwsRegion = 'AwsRegion',
+  KafkaBrokers = 'KafkaBrokers',
 }
 
 @Injectable()
@@ -28,21 +29,22 @@ export class ConfigClient {
       this.configValues.set(ConfigKeys.DbPassword, 'S3cret');
       this.configValues.set(ConfigKeys.DbUserName, 'citizix_user');
       this.configValues.set(ConfigKeys.DbName, 'citizix_db');
+      this.configValues.set(ConfigKeys.KafkaBrokers, 'localhost:9092');
       resolve();
     });
   }
 
   get(key: ConfigKeys): string {
     const val = this.configValues.get(key);
-    if (val === undefined) {
+    if (val === undefined || typeof val !== 'string') {
       throw new Error(`no config found for ${key}`);
     }
-    return val as string;
+    return val;
   }
 
   getNumber(key: ConfigKeys): number {
     const val = this.configValues.get(key);
-    if (val === undefined) {
+    if (val === undefined || typeof val !== 'number') {
       throw new Error(`no config found for ${key}`);
     }
     return val as number;

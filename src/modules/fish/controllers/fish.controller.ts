@@ -21,7 +21,6 @@ export class FishController {
   async getPaginatedFishList(
     @Query() fishListQuery: FishListQueryParamsDto,
   ): Promise<FishListResponseDto> {
-    console.log(fishListQuery.limit);
     return this.fishService.getPaginatedFishList(fishListQuery);
   }
 

@@ -7,12 +7,15 @@ import {
 import { FishCustomRepository } from '../repositories/fish.repository';
 import { LoggerClient } from '../../shared/logger.client';
 import { Fish } from '../entities/fish.entity';
+import { FishKafkaProducer } from '../messaging/fish.kafka.producer';
+import { FishUpdatedType } from '../types/fish.kafka.messages';
 
 @Injectable()
 export class FishService {
   constructor(
     private readonly fishRepository: FishCustomRepository,
     private readonly log: LoggerClient,
+    private readonly fishKafkaProducer: FishKafkaProducer,
   ) {}
 
   async getPaginatedFishList(
@@ -83,6 +86,13 @@ export class FishService {
     // Can also use transactions with Pessimistic locking here to further protect this.
     await this.fishRepository.updateFish(fishData);
 
-    return (await this.fishRepository.findOneById(fishId)) as Fish;
+    const result = (await this.fishRepository.findOneById(fishId)) as Fish;
+
+    await this.fishKafkaProducer.produceFishUpdated({
+      updateType: FishUpdatedType.UPDATED,
+      data: result,
+    });
+
+    return result;
   }
 }
