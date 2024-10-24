@@ -27,7 +27,8 @@ const fishKafkaConsumerFactory = {
     await kafkaConsumer.init();
     return kafkaConsumer;
   },
-  inject: [KafkaClient, LoggerClient],
+  // Injecting kafka producer so that topic creation is complete before
+  inject: [KafkaClient, LoggerClient, FishKafkaProducer],
 };
 
 @Module({

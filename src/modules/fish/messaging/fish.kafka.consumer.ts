@@ -25,9 +25,9 @@ export class FishKafkaConsumer {
     await this.kafkaConsumer.subscribe({
       topics: [FishKafkaProducer.FishKafkaTopic],
     });
-    await this.kafkaConsumer.run({
+    this.kafkaConsumer.run({
       eachMessage: async ({ topic, partition, message, heartbeat, pause }) => {
-        this.logger.log('Got message', {
+        this.logger.info('Got message', {
           key: message.key?.toString(),
           value: message.value?.toString(),
           headers: message.headers,

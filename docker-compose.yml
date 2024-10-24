@@ -12,17 +12,17 @@ services:
     volumes:
       - postgres_dev_data:/var/lib/postgresql/data
 
-#  postgres_test:
-#    image: postgres:17-alpine
-#    restart: always
-#    environment:
-#      POSTGRES_USER: test_user
-#      POSTGRES_PASSWORD: test_password
-#      POSTGRES_DB: test_db
-#    ports:
-#      - "5434:5432"
-#    tmpfs:
-#      - /var/lib/postgresql/data
+  postgres_test:
+    image: postgres:17-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: test_db
+    ports:
+      - "5434:5432"
+    tmpfs:
+      - /var/lib/postgresql/data
 
   zookeeper:
     image: bitnami/zookeeper:latest
